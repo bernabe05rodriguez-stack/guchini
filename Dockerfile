@@ -37,15 +37,14 @@ RUN mkdir -p /app/public/uploads && chown -R nextjs:nodejs /app/public/uploads
 COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
 COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
 
-# Copy prisma CLI + client + schema for db push
+# Copy prisma client for runtime
 COPY --from=builder /app/node_modules/.prisma ./node_modules/.prisma
 COPY --from=builder /app/node_modules/@prisma ./node_modules/@prisma
-COPY --from=builder /app/node_modules/prisma ./node_modules/prisma
-COPY --from=builder /app/prisma ./prisma
+
+USER nextjs
 
 EXPOSE 80
 ENV PORT=80
 ENV HOSTNAME="0.0.0.0"
 
-# Run db push as root, then switch to nextjs for the server
-CMD ["sh", "-c", "node node_modules/prisma/build/index.js db push --skip-generate --accept-data-loss 2>&1; su -s /bin/sh nextjs -c 'node server.js'"]
+CMD ["node", "server.js"]
