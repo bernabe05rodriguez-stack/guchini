@@ -73,7 +73,8 @@ export function CatalogoSection({ dbProducts }: CatalogoSectionProps) {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
           {CATALOG_PRODUCTS.map((product) => {
             const db = dbProducts.find(
-              (p) => p.name.toLowerCase() === product.name.toLowerCase()
+              (p) => p.name.toLowerCase().includes(product.name.toLowerCase()) ||
+                     product.name.toLowerCase().includes(p.name.toLowerCase())
             )
 
             return (
