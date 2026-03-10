@@ -21,7 +21,8 @@ export function CartSheet() {
 
   const handleCheckout = async () => {
     const res = await fetch("/api/auth/me")
-    if (!res.ok) {
+    const data = await res.json()
+    if (!data?.user) {
       toast.info("Iniciá sesión para continuar con tu pedido")
       router.push("/auth/login?redirect=/checkout")
       setIsOpen(false)

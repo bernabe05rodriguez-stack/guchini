@@ -20,7 +20,13 @@ export function Navbar() {
   useEffect(() => {
     fetch("/api/auth/me")
       .then(res => res.ok ? res.json() : null)
-      .then(data => setUser(data))
+      .then(data => {
+        if (data?.user) {
+          setUser({ sub: data.user.id, email: data.user.email, name: data.user.fullName })
+        } else {
+          setUser(null)
+        }
+      })
       .catch(() => setUser(null))
   }, [])
 
