@@ -21,7 +21,7 @@
     --secondary-foreground: 0 0% 98%;
 
     --muted: 36 20% 88%;
-    --muted-foreground: 0 0% 40%;
+    --muted-foreground: 0 0% 45%;
 
     --accent: 38 80% 52%; /* #E8A020 mustard */
     --accent-foreground: 0 0% 10%;
@@ -29,7 +29,7 @@
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 98%;
 
-    --border: 36 15% 82%;
+    --border: 36 15% 88%;
     --input: 36 15% 82%;
     --ring: 100 55% 20%;
 
@@ -49,5 +49,12 @@
   }
   h1, h2, h3, h4, h5, h6 {
     @apply font-display;
+  }
+}
+
+@layer utilities {
+  /* Smooth section transitions */
+  section {
+    @apply relative;
   }
 }

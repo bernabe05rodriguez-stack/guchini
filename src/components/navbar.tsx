@@ -64,16 +64,16 @@ export function Navbar() {
   }
 
   return (
-    <nav className={`fixed top-0 z-50 w-full transition-all duration-300 ${
+    <nav className={`fixed top-0 z-50 w-full transition-all duration-500 ${
       scrolled
-        ? "bg-cream/95 backdrop-blur shadow-sm border-b border-border"
+        ? "bg-white/95 backdrop-blur-md shadow-sm"
         : "bg-transparent"
     }`}>
-      <div className="container flex h-16 items-center justify-between">
+      <div className="container flex h-18 items-center justify-between py-3">
         {/* Logo */}
-        <Link href="/" className="flex items-center gap-2" onClick={() => handleNavClick("#home")}>
-          <Image src="/logo.png" alt="Guchini" width={40} height={40} className="rounded-full" />
-          <span className={`text-2xl font-display font-bold transition-colors ${
+        <Link href="/" className="flex items-center gap-2.5" onClick={() => handleNavClick("#home")}>
+          <Image src="/logo.png" alt="Guchini" width={42} height={42} className="rounded-full" />
+          <span className={`text-2xl font-display font-bold transition-colors duration-300 ${
             scrolled ? "text-olive" : "text-white"
           }`}>
             Guchini
@@ -81,13 +81,13 @@ export function Navbar() {
         </Link>
 
         {/* Desktop nav links */}
-        <div className="hidden md:flex items-center gap-6">
+        <div className="hidden md:flex items-center gap-8">
           {NAV_LINKS.map((link) => (
             <button
               key={link.href}
               onClick={() => handleNavClick(link.href)}
-              className={`text-sm font-medium transition-colors hover:text-mustard ${
-                scrolled ? "text-foreground/80" : "text-white/90"
+              className={`text-sm font-medium transition-colors duration-300 hover:text-mustard ${
+                scrolled ? "text-foreground/70" : "text-white/80"
               }`}
             >
               {link.label}
@@ -96,12 +96,12 @@ export function Navbar() {
         </div>
 
         {/* Actions */}
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2">
           {/* Cart */}
           <Button
             variant="ghost"
             size="icon"
-            className={`relative ${scrolled ? "" : "text-white hover:bg-white/10"}`}
+            className={`relative ${scrolled ? "hover:bg-olive/5" : "text-white hover:bg-white/10"}`}
             onClick={() => setIsOpen(true)}
           >
             <ShoppingCart className="h-5 w-5" />
@@ -120,14 +120,14 @@ export function Navbar() {
                   {user.name?.[0] || user.email[0]?.toUpperCase()}
                 </AvatarFallback>
               </Avatar>
-              <Button variant="ghost" size="icon" onClick={handleSignOut} className={scrolled ? "" : "text-white hover:bg-white/10"}>
+              <Button variant="ghost" size="icon" onClick={handleSignOut} className={scrolled ? "hover:bg-olive/5" : "text-white hover:bg-white/10"}>
                 <LogOut className="h-4 w-4" />
               </Button>
             </div>
           ) : (
             <Link href="/auth/login" className="hidden sm:block">
-              <Button variant="outline" size="sm" className={`gap-2 ${
-                scrolled ? "" : "border-white/30 text-white hover:bg-white/10"
+              <Button variant="outline" size="sm" className={`gap-2 rounded-full ${
+                scrolled ? "border-olive/20 hover:bg-olive/5" : "border-white/30 text-white hover:bg-white/10"
               }`}>
                 <User className="h-4 w-4" />
                 Ingresar
@@ -149,31 +149,33 @@ export function Navbar() {
 
       {/* Mobile menu */}
       {mobileOpen && (
-        <div className="md:hidden bg-cream border-t border-border shadow-lg">
-          <div className="container py-4 space-y-3">
+        <div className="md:hidden bg-white border-t border-border/50 shadow-lg">
+          <div className="container py-4 space-y-1">
             {NAV_LINKS.map((link) => (
               <button
                 key={link.href}
                 onClick={() => handleNavClick(link.href)}
-                className="block w-full text-left text-foreground/80 hover:text-olive font-medium py-2 text-sm"
+                className="block w-full text-left text-foreground/70 hover:text-olive hover:bg-olive/5 font-medium py-2.5 px-3 text-sm rounded-lg transition-colors"
               >
                 {link.label}
               </button>
             ))}
-            {!user && (
-              <Link href="/auth/login" className="block">
-                <Button variant="outline" size="sm" className="w-full gap-2 mt-2">
-                  <User className="h-4 w-4" />
-                  Ingresar
+            <div className="pt-2 border-t border-border/50 mt-2">
+              {!user && (
+                <Link href="/auth/login" className="block">
+                  <Button variant="outline" size="sm" className="w-full gap-2 rounded-full">
+                    <User className="h-4 w-4" />
+                    Ingresar
+                  </Button>
+                </Link>
+              )}
+              {user && (
+                <Button variant="ghost" size="sm" className="w-full gap-2" onClick={handleSignOut}>
+                  <LogOut className="h-4 w-4" />
+                  Cerrar sesión
                 </Button>
-              </Link>
-            )}
-            {user && (
-              <Button variant="ghost" size="sm" className="w-full gap-2 mt-2" onClick={handleSignOut}>
-                <LogOut className="h-4 w-4" />
-                Cerrar sesión
-              </Button>
-            )}
+              )}
+            </div>
           </div>
         </div>
       )}

@@ -40,14 +40,15 @@ export default async function HomePage() {
     <>
       <HeroSection storeOpen={storeOpen} storeMessage={storeMessage} />
 
-      {/* Nuestros Sanguchinis - cards con fotos + precio + compra */}
+      {/* Nuestros Sanguchinis */}
       <CatalogoSection dbProducts={sandwichData} />
 
       {/* Bebidas */}
-      <section className="py-20 bg-white">
+      <section className="py-24 bg-white">
         <div className="container">
-          <div className="text-center mb-12">
-            <h2 className="text-4xl md:text-5xl font-display font-bold text-foreground mb-4">
+          <div className="text-center mb-14">
+            <span className="text-mustard font-medium text-sm uppercase tracking-widest">Complementos</span>
+            <h2 className="text-4xl md:text-5xl font-display font-bold text-foreground mt-3 mb-4">
               Para Acompañar
             </h2>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">

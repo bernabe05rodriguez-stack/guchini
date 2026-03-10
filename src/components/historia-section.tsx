@@ -2,10 +2,11 @@ import { TIMELINE_EVENTS } from "@/lib/constants"
 
 export function HistoriaSection() {
   return (
-    <section id="historia" className="py-20 bg-white">
+    <section id="historia" className="py-24 bg-white">
       <div className="container">
-        <div className="text-center mb-14">
-          <h2 className="text-4xl md:text-5xl font-display font-bold text-foreground mb-4">
+        <div className="text-center mb-16">
+          <span className="text-mustard font-medium text-sm uppercase tracking-widest">Sobre nosotros</span>
+          <h2 className="text-4xl md:text-5xl font-display font-bold text-foreground mt-3 mb-4">
             Nuestra Historia
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
@@ -16,9 +17,9 @@ export function HistoriaSection() {
         {/* Timeline */}
         <div className="relative max-w-3xl mx-auto">
           {/* Vertical line */}
-          <div className="absolute left-6 md:left-1/2 top-0 bottom-0 w-0.5 bg-olive/20 -translate-x-1/2" />
+          <div className="absolute left-6 md:left-1/2 top-0 bottom-0 w-0.5 bg-olive/15 -translate-x-1/2" />
 
-          <div className="space-y-12">
+          <div className="space-y-14">
             {TIMELINE_EVENTS.map((event, index) => (
               <div
                 key={event.month}
@@ -27,7 +28,7 @@ export function HistoriaSection() {
                 }`}
               >
                 {/* Dot */}
-                <div className="absolute left-6 md:left-1/2 w-4 h-4 bg-olive rounded-full border-4 border-white shadow -translate-x-1/2 z-10" />
+                <div className="absolute left-6 md:left-1/2 w-4 h-4 bg-olive rounded-full border-4 border-white shadow-md -translate-x-1/2 z-10" />
 
                 {/* Content */}
                 <div

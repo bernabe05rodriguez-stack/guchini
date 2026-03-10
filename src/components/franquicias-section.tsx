@@ -22,9 +22,9 @@ const BENEFITS = [
 
 export function FranquiciasSection() {
   return (
-    <section id="franquicias" className="py-20 bg-olive text-white relative overflow-hidden">
+    <section id="franquicias" className="py-24 bg-olive text-white relative overflow-hidden">
       {/* Background pattern */}
-      <div className="absolute inset-0 opacity-5">
+      <div className="absolute inset-0 opacity-[0.03]">
         <div
           className="absolute inset-0"
           style={{
@@ -35,27 +35,28 @@ export function FranquiciasSection() {
       </div>
 
       <div className="container relative">
-        <div className="text-center mb-14">
-          <h2 className="text-4xl md:text-5xl font-display font-bold mb-4">
+        <div className="text-center mb-16">
+          <span className="text-mustard font-medium text-sm uppercase tracking-widest">Crecé con nosotros</span>
+          <h2 className="text-4xl md:text-5xl font-display font-bold mt-3 mb-4">
             Franquicias
           </h2>
-          <p className="text-xl text-white/80 max-w-3xl mx-auto">
+          <p className="text-xl text-white/70 max-w-3xl mx-auto">
             Modelo de negocio simple, novedoso y rentable
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto mb-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto mb-14">
           {BENEFITS.map((benefit) => (
             <div
               key={benefit.title}
-              className="flex gap-4 p-6 rounded-xl bg-white/5 backdrop-blur-sm border border-white/10 hover:bg-white/10 transition-colors"
+              className="flex gap-4 p-6 rounded-2xl bg-white/[0.06] backdrop-blur-sm border border-white/10 hover:bg-white/[0.1] transition-all duration-300"
             >
               <CheckCircle className="h-6 w-6 text-mustard flex-shrink-0 mt-0.5" />
               <div>
                 <h3 className="text-lg font-display font-bold mb-1">
                   {benefit.title}
                 </h3>
-                <p className="text-white/70 text-sm leading-relaxed">
+                <p className="text-white/60 text-sm leading-relaxed">
                   {benefit.description}
                 </p>
               </div>
@@ -68,7 +69,7 @@ export function FranquiciasSection() {
             href={STORE_FRANCHISE_FORM}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 bg-mustard hover:bg-mustard-light text-foreground font-bold px-8 py-4 rounded-full text-lg transition-colors"
+            className="inline-flex items-center gap-2 bg-mustard hover:bg-mustard-light text-foreground font-bold px-8 py-4 rounded-full text-lg transition-all hover:shadow-lg hover:shadow-mustard/20"
           >
             Quiero mi Franquicia
             <ArrowRight className="h-5 w-5" />
