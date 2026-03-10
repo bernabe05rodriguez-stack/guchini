@@ -46,7 +46,7 @@ export function ProductCard({ product, type, compact = false }: ProductCardProps
   return (
     <Card className={`group overflow-hidden transition-all hover:shadow-md ${!product.available ? "opacity-60 grayscale" : ""}`}>
       {/* Image */}
-      <div className={`relative ${isDrink ? "h-52 p-4" : "h-48"} bg-gradient-to-br ${isDrink ? "from-white to-cream" : "from-olive/10 to-brown/10"} overflow-hidden flex items-center justify-center`}>
+      <div className={`relative ${isDrink ? "h-52 p-4" : "h-48"} ${isDrink ? "bg-white" : "bg-gradient-to-br from-olive/10 to-brown/10"} overflow-hidden flex items-center justify-center`}>
         {imageUrl ? (
           <Image
             src={imageUrl}
