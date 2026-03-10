@@ -43,13 +43,18 @@ export default async function HomePage() {
       {/* Nuestros Sanguchinis - cards con fotos + precio + compra */}
       <CatalogoSection dbProducts={sandwichData} />
 
-      {/* Para acompañar */}
-      <section className="py-16 bg-white">
+      {/* Bebidas */}
+      <section className="py-20 bg-white">
         <div className="container">
-          <h2 className="text-3xl font-display font-bold text-foreground mb-6">
-            Para acompañar
-          </h2>
-          <ProductGrid products={drinkData} type="drink" compact />
+          <div className="text-center mb-12">
+            <h2 className="text-4xl md:text-5xl font-display font-bold text-foreground mb-4">
+              Para Acompañar
+            </h2>
+            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+              Completá tu combo con la bebida perfecta
+            </p>
+          </div>
+          <ProductGrid products={drinkData} type="drink" />
         </div>
       </section>
 
