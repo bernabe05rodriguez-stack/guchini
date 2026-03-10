@@ -46,22 +46,36 @@ export default async function HomePage() {
       {/* Catálogo showcase (estático, como en guchini.com.ar) */}
       <CatalogoSection />
 
-      {/* Pedidos online - productos del sistema */}
+      {/* Pedí y Retirá */}
       <section id="pedir" className="py-20 bg-white">
         <div className="container">
-          <div className="text-center mb-12">
+          <div className="text-center mb-14">
             <h2 className="text-4xl md:text-5xl font-display font-bold text-foreground mb-4">
-              Pedí Online
+              Pedí y Retirá
             </h2>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Elegí tu sanguche, pagá online y pasá a buscar. Nada más simple.
+            <p className="text-lg text-muted-foreground max-w-2xl mx-auto mb-3">
+              Ahorrá la fila y la espera. Elegí tu Guchini, pagá online y retiralo listo en el local.
             </p>
+            <div className="flex flex-wrap justify-center gap-6 mt-6 text-sm text-muted-foreground">
+              <div className="flex items-center gap-2">
+                <span className="w-8 h-8 rounded-full bg-olive/10 flex items-center justify-center text-olive font-bold">1</span>
+                Elegí tu sanguche
+              </div>
+              <div className="flex items-center gap-2">
+                <span className="w-8 h-8 rounded-full bg-olive/10 flex items-center justify-center text-olive font-bold">2</span>
+                Pagá online
+              </div>
+              <div className="flex items-center gap-2">
+                <span className="w-8 h-8 rounded-full bg-olive/10 flex items-center justify-center text-olive font-bold">3</span>
+                Retirá sin esperar
+              </div>
+            </div>
           </div>
 
           <div className="space-y-12">
             <div>
               <h3 className="text-2xl font-display font-bold text-foreground mb-6">
-                Sándwiches
+                Nuestros Sándwiches
               </h3>
               <ProductGrid products={sandwichData} type="sandwich" />
             </div>

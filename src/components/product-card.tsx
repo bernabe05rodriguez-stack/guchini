@@ -9,6 +9,11 @@ import { formatPrice } from "@/lib/utils"
 import { useCart } from "@/contexts/cart-context"
 import type { Sandwich as SandwichType, Drink } from "@/types/database"
 import { toast } from "sonner"
+import { CATALOG_PRODUCTS } from "@/lib/constants"
+
+const FALLBACK_IMAGES: Record<string, string> = Object.fromEntries(
+  CATALOG_PRODUCTS.map(p => [p.name.toLowerCase(), p.image])
+)
 
 interface ProductCardProps {
   product: SandwichType | Drink
@@ -22,6 +27,8 @@ function isSandwich(product: SandwichType | Drink): product is SandwichType {
 
 export function ProductCard({ product, type, compact = false }: ProductCardProps) {
   const { addItem } = useCart()
+
+  const imageUrl = product.image_url || FALLBACK_IMAGES[product.name.toLowerCase()] || null
 
   const handleAdd = () => {
     if (!product.available) return
@@ -39,9 +46,9 @@ export function ProductCard({ product, type, compact = false }: ProductCardProps
     <Card className={`group overflow-hidden transition-all hover:shadow-md ${!product.available ? "opacity-60 grayscale" : ""}`}>
       {/* Image */}
       <div className={`relative ${compact ? "h-32" : "h-48"} bg-gradient-to-br from-olive/10 to-brown/10 overflow-hidden`}>
-        {product.image_url ? (
+        {imageUrl ? (
           <Image
-            src={product.image_url}
+            src={imageUrl}
             alt={product.name}
             fill
             className="object-cover group-hover:scale-105 transition-transform duration-300"
