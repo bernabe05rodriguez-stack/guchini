@@ -1,0 +1,102 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           String   @id @default(uuid())
+  email        String   @unique
+  passwordHash String   @map("password_hash")
+  fullName     String?  @map("full_name")
+  phone        String?
+  totalOrders  Int      @default(0) @map("total_orders")
+  totalSpent   Decimal  @default(0) @map("total_spent") @db.Decimal(10, 2)
+  createdAt    DateTime @default(now()) @map("created_at")
+  orders       Order[]
+
+  @@map("users")
+}
+
+model Sandwich {
+  id           String   @id @default(uuid())
+  name         String
+  description  String?
+  ingredients  String[]
+  price        Decimal  @db.Decimal(10, 2)
+  imageUrl     String?  @map("image_url")
+  available    Boolean  @default(true)
+  displayOrder Int      @default(0) @map("display_order")
+  createdAt    DateTime @default(now()) @map("created_at")
+  updatedAt    DateTime @updatedAt @map("updated_at")
+
+  @@map("sandwiches")
+}
+
+model Drink {
+  id           String   @id @default(uuid())
+  name         String
+  description  String?
+  price        Decimal  @db.Decimal(10, 2)
+  imageUrl     String?  @map("image_url")
+  available    Boolean  @default(true)
+  displayOrder Int      @default(0) @map("display_order")
+  createdAt    DateTime @default(now()) @map("created_at")
+  updatedAt    DateTime @updatedAt @map("updated_at")
+
+  @@map("drinks")
+}
+
+model Order {
+  id                   String      @id @default(uuid())
+  orderNumber          String      @unique @map("order_number")
+  userId               String?     @map("user_id")
+  user                 User?       @relation(fields: [userId], references: [id])
+  status               String      @default("pending")
+  subtotal             Decimal     @db.Decimal(10, 2)
+  total                Decimal     @db.Decimal(10, 2)
+  estimatedWaitMinutes Int?        @map("estimated_wait_minutes")
+  mpPreferenceId       String?     @map("mp_preference_id")
+  mpPaymentId          String?     @map("mp_payment_id")
+  mpStatus             String?     @map("mp_status")
+  notes                String?
+  createdAt            DateTime    @default(now()) @map("created_at")
+  updatedAt            DateTime    @updatedAt @map("updated_at")
+  items                OrderItem[]
+
+  @@map("orders")
+}
+
+model OrderItem {
+  id        String  @id @default(uuid())
+  orderId   String  @map("order_id")
+  order     Order   @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  itemType  String  @map("item_type")
+  itemId    String  @map("item_id")
+  itemName  String  @map("item_name")
+  quantity  Int     @default(1)
+  unitPrice Decimal @map("unit_price") @db.Decimal(10, 2)
+  subtotal  Decimal @db.Decimal(10, 2)
+
+  @@map("order_items")
+}
+
+model Setting {
+  key         String  @id
+  value       String
+  description String?
+
+  @@map("settings")
+}
+
+model AdminUser {
+  id           String   @id @default(uuid())
+  username     String   @unique
+  passwordHash String   @map("password_hash")
+  createdAt    DateTime @default(now()) @map("created_at")
+
+  @@map("admin_users")
+}

@@ -1,0 +1,5 @@
+export const STORE_NAME = "Guchini"
+export const STORE_TAGLINE = "Un Manso Sanguche"
+export const STORE_ADDRESS = "San Lorenzo 577, Mendoza"
+export const STORE_INSTAGRAM = "@guchini.ok"
+export const ORDER_PREFIX = "GUCH"
