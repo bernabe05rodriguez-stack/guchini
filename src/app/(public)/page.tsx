@@ -2,6 +2,7 @@ export const dynamic = "force-dynamic"
 
 import { prisma } from "@/lib/db"
 import { HeroSection } from "@/components/hero-section"
+import { CatalogoSection } from "@/components/catalogo-section"
 import { ProductGrid } from "@/components/product-grid"
 import { FranquiciasSection } from "@/components/franquicias-section"
 import { HistoriaSection } from "@/components/historia-section"
@@ -20,12 +21,9 @@ export default async function HomePage() {
   const sandwichData = sandwiches.map(s => ({
     id: s.id,
     name: s.name,
-    description: s.description,
-    ingredients: s.ingredients as string[],
     price: Number(s.price),
     image_url: s.imageUrl,
     available: s.available,
-    display_order: s.displayOrder,
   }))
 
   const drinkData = drinks.map(d => ({
@@ -42,45 +40,8 @@ export default async function HomePage() {
     <>
       <HeroSection storeOpen={storeOpen} storeMessage={storeMessage} />
 
-      {/* Nuestros Sanguchinis - con fotos, precios y compra */}
-      <section id="productos" className="py-20 bg-cream">
-        <div className="container">
-          <div className="text-center mb-14">
-            <h2 className="text-4xl md:text-5xl font-display font-bold text-foreground mb-4">
-              Nuestros Sanguchinis
-            </h2>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Cada sanguche es una obra maestra culinaria
-            </p>
-
-            {/* Pedí y Retirá */}
-            <div className="mt-8 p-6 bg-olive/5 rounded-2xl inline-block">
-              <h3 className="text-xl font-display font-bold text-olive mb-2">
-                Pedí y Retirá
-              </h3>
-              <p className="text-sm text-muted-foreground mb-4">
-                Ahorrá la fila y la espera. Elegí tu Guchini, pagá online y retiralo listo en el local.
-              </p>
-              <div className="flex flex-wrap justify-center gap-6 text-sm text-muted-foreground">
-                <div className="flex items-center gap-2">
-                  <span className="w-8 h-8 rounded-full bg-olive/10 flex items-center justify-center text-olive font-bold">1</span>
-                  Elegí tu sanguche
-                </div>
-                <div className="flex items-center gap-2">
-                  <span className="w-8 h-8 rounded-full bg-olive/10 flex items-center justify-center text-olive font-bold">2</span>
-                  Pagá online
-                </div>
-                <div className="flex items-center gap-2">
-                  <span className="w-8 h-8 rounded-full bg-olive/10 flex items-center justify-center text-olive font-bold">3</span>
-                  Retirá sin esperar
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <ProductGrid products={sandwichData} type="sandwich" />
-        </div>
-      </section>
+      {/* Nuestros Sanguchinis - cards con fotos + precio + compra */}
+      <CatalogoSection dbProducts={sandwichData} />
 
       {/* Para acompañar */}
       <section className="py-16 bg-white">
