@@ -2,7 +2,11 @@ export const dynamic = "force-dynamic"
 
 import { prisma } from "@/lib/db"
 import { HeroSection } from "@/components/hero-section"
+import { CatalogoSection } from "@/components/catalogo-section"
 import { ProductGrid } from "@/components/product-grid"
+import { FranquiciasSection } from "@/components/franquicias-section"
+import { HistoriaSection } from "@/components/historia-section"
+import { LocalesSection } from "@/components/locales-section"
 
 export default async function HomePage() {
   const [sandwiches, drinks, settings] = await Promise.all([
@@ -39,21 +43,42 @@ export default async function HomePage() {
     <>
       <HeroSection storeOpen={storeOpen} storeMessage={storeMessage} />
 
-      <div className="container py-10 space-y-12">
-        <section>
-          <h2 className="text-3xl font-display font-bold text-foreground mb-6">
-            Nuestros Sándwiches
-          </h2>
-          <ProductGrid products={sandwichData} type="sandwich" />
-        </section>
+      {/* Catálogo showcase (estático, como en guchini.com.ar) */}
+      <CatalogoSection />
 
-        <section>
-          <h2 className="text-3xl font-display font-bold text-foreground mb-6">
-            Para acompañar
-          </h2>
-          <ProductGrid products={drinkData} type="drink" compact />
-        </section>
-      </div>
+      {/* Pedidos online - productos del sistema */}
+      <section id="pedir" className="py-20 bg-white">
+        <div className="container">
+          <div className="text-center mb-12">
+            <h2 className="text-4xl md:text-5xl font-display font-bold text-foreground mb-4">
+              Pedí Online
+            </h2>
+            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+              Elegí tu sanguche, pagá online y pasá a buscar. Nada más simple.
+            </p>
+          </div>
+
+          <div className="space-y-12">
+            <div>
+              <h3 className="text-2xl font-display font-bold text-foreground mb-6">
+                Sándwiches
+              </h3>
+              <ProductGrid products={sandwichData} type="sandwich" />
+            </div>
+
+            <div>
+              <h3 className="text-2xl font-display font-bold text-foreground mb-6">
+                Para acompañar
+              </h3>
+              <ProductGrid products={drinkData} type="drink" compact />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <FranquiciasSection />
+      <HistoriaSection />
+      <LocalesSection />
     </>
   )
 }
