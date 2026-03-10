@@ -17,7 +17,6 @@ interface UserData {
 const NAV_LINKS = [
   { label: "Home", href: "#home" },
   { label: "Sanguchinis", href: "#productos" },
-  { label: "Pedí y Retirá", href: "#pedir" },
   { label: "Franquicias", href: "#franquicias" },
   { label: "Nosotros", href: "#historia" },
   { label: "Locales", href: "#locales" },

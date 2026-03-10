@@ -21,7 +21,6 @@ export function Footer() {
             <div className="space-y-2 text-sm">
               {[
                 { label: "Sanguchinis", href: "#productos" },
-                { label: "Pedí y Retirá", href: "#pedir" },
                 { label: "Franquicias", href: "#franquicias" },
                 { label: "Nosotros", href: "#historia" },
                 { label: "Locales", href: "#locales" },

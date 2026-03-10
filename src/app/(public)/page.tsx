@@ -2,7 +2,6 @@ export const dynamic = "force-dynamic"
 
 import { prisma } from "@/lib/db"
 import { HeroSection } from "@/components/hero-section"
-import { CatalogoSection } from "@/components/catalogo-section"
 import { ProductGrid } from "@/components/product-grid"
 import { FranquiciasSection } from "@/components/franquicias-section"
 import { HistoriaSection } from "@/components/historia-section"
@@ -43,50 +42,53 @@ export default async function HomePage() {
     <>
       <HeroSection storeOpen={storeOpen} storeMessage={storeMessage} />
 
-      {/* Catálogo showcase (estático, como en guchini.com.ar) */}
-      <CatalogoSection />
-
-      {/* Pedí y Retirá */}
-      <section id="pedir" className="py-20 bg-white">
+      {/* Nuestros Sanguchinis - con fotos, precios y compra */}
+      <section id="productos" className="py-20 bg-cream">
         <div className="container">
           <div className="text-center mb-14">
             <h2 className="text-4xl md:text-5xl font-display font-bold text-foreground mb-4">
-              Pedí y Retirá
+              Nuestros Sanguchinis
             </h2>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto mb-3">
-              Ahorrá la fila y la espera. Elegí tu Guchini, pagá online y retiralo listo en el local.
+            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+              Cada sanguche es una obra maestra culinaria
             </p>
-            <div className="flex flex-wrap justify-center gap-6 mt-6 text-sm text-muted-foreground">
-              <div className="flex items-center gap-2">
-                <span className="w-8 h-8 rounded-full bg-olive/10 flex items-center justify-center text-olive font-bold">1</span>
-                Elegí tu sanguche
-              </div>
-              <div className="flex items-center gap-2">
-                <span className="w-8 h-8 rounded-full bg-olive/10 flex items-center justify-center text-olive font-bold">2</span>
-                Pagá online
-              </div>
-              <div className="flex items-center gap-2">
-                <span className="w-8 h-8 rounded-full bg-olive/10 flex items-center justify-center text-olive font-bold">3</span>
-                Retirá sin esperar
+
+            {/* Pedí y Retirá */}
+            <div className="mt-8 p-6 bg-olive/5 rounded-2xl inline-block">
+              <h3 className="text-xl font-display font-bold text-olive mb-2">
+                Pedí y Retirá
+              </h3>
+              <p className="text-sm text-muted-foreground mb-4">
+                Ahorrá la fila y la espera. Elegí tu Guchini, pagá online y retiralo listo en el local.
+              </p>
+              <div className="flex flex-wrap justify-center gap-6 text-sm text-muted-foreground">
+                <div className="flex items-center gap-2">
+                  <span className="w-8 h-8 rounded-full bg-olive/10 flex items-center justify-center text-olive font-bold">1</span>
+                  Elegí tu sanguche
+                </div>
+                <div className="flex items-center gap-2">
+                  <span className="w-8 h-8 rounded-full bg-olive/10 flex items-center justify-center text-olive font-bold">2</span>
+                  Pagá online
+                </div>
+                <div className="flex items-center gap-2">
+                  <span className="w-8 h-8 rounded-full bg-olive/10 flex items-center justify-center text-olive font-bold">3</span>
+                  Retirá sin esperar
+                </div>
               </div>
             </div>
           </div>
 
-          <div className="space-y-12">
-            <div>
-              <h3 className="text-2xl font-display font-bold text-foreground mb-6">
-                Nuestros Sándwiches
-              </h3>
-              <ProductGrid products={sandwichData} type="sandwich" />
-            </div>
+          <ProductGrid products={sandwichData} type="sandwich" />
+        </div>
+      </section>
 
-            <div>
-              <h3 className="text-2xl font-display font-bold text-foreground mb-6">
-                Para acompañar
-              </h3>
-              <ProductGrid products={drinkData} type="drink" compact />
-            </div>
-          </div>
+      {/* Para acompañar */}
+      <section className="py-16 bg-white">
+        <div className="container">
+          <h2 className="text-3xl font-display font-bold text-foreground mb-6">
+            Para acompañar
+          </h2>
+          <ProductGrid products={drinkData} type="drink" compact />
         </div>
       </section>
 
