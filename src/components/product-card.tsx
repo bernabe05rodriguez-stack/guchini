@@ -1,7 +1,7 @@
 "use client"
 
 import Image from "next/image"
-import { Plus, Sandwich } from "lucide-react"
+import { Plus, Sandwich, GlassWater } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { Card, CardContent } from "@/components/ui/card"
@@ -27,6 +27,7 @@ function isSandwich(product: SandwichType | Drink): product is SandwichType {
 
 export function ProductCard({ product, type, compact = false }: ProductCardProps) {
   const { addItem } = useCart()
+  const isDrink = type === "drink"
 
   const imageUrl = product.image_url || FALLBACK_IMAGES[product.name.toLowerCase()] || null
 
@@ -45,17 +46,21 @@ export function ProductCard({ product, type, compact = false }: ProductCardProps
   return (
     <Card className={`group overflow-hidden transition-all hover:shadow-md ${!product.available ? "opacity-60 grayscale" : ""}`}>
       {/* Image */}
-      <div className={`relative ${compact ? "h-32" : "h-48"} bg-gradient-to-br from-olive/10 to-brown/10 overflow-hidden`}>
+      <div className={`relative ${isDrink ? "h-52 p-4" : "h-48"} bg-gradient-to-br ${isDrink ? "from-white to-cream" : "from-olive/10 to-brown/10"} overflow-hidden flex items-center justify-center`}>
         {imageUrl ? (
           <Image
             src={imageUrl}
             alt={product.name}
             fill
-            className="object-cover group-hover:scale-105 transition-transform duration-300"
+            className={`${isDrink ? "object-contain p-3" : "object-cover"} group-hover:scale-105 transition-transform duration-300`}
           />
         ) : (
           <div className="absolute inset-0 flex items-center justify-center">
-            <Sandwich className="h-12 w-12 text-olive/30" />
+            {isDrink ? (
+              <GlassWater className="h-12 w-12 text-olive/30" />
+            ) : (
+              <Sandwich className="h-12 w-12 text-olive/30" />
+            )}
           </div>
         )}
         {!product.available && (
@@ -67,22 +72,22 @@ export function ProductCard({ product, type, compact = false }: ProductCardProps
         )}
       </div>
 
-      <CardContent className={compact ? "p-3" : "p-4"}>
+      <CardContent className="p-4">
         {/* Name */}
-        <h3 className={`font-display font-bold text-foreground ${compact ? "text-base" : "text-lg"}`}>
+        <h3 className="font-display font-bold text-foreground text-lg text-center">
           {product.name}
         </h3>
 
         {/* Description */}
-        {!compact && product.description && (
-          <p className="text-sm text-muted-foreground mt-1 line-clamp-2">
+        {product.description && !compact && (
+          <p className="text-sm text-muted-foreground mt-1 line-clamp-2 text-center">
             {product.description}
           </p>
         )}
 
         {/* Ingredients */}
         {!compact && isSandwich(product) && product.ingredients && (
-          <div className="flex flex-wrap gap-1 mt-2">
+          <div className="flex flex-wrap gap-1 mt-2 justify-center">
             {product.ingredients.map((ing, i) => (
               <Badge key={i} variant="accent" className="text-xs font-normal">
                 {ing}
@@ -97,7 +102,7 @@ export function ProductCard({ product, type, compact = false }: ProductCardProps
             {formatPrice(Number(product.price))}
           </span>
           <Button
-            size={compact ? "sm" : "default"}
+            size="sm"
             onClick={handleAdd}
             disabled={!product.available}
             className="bg-olive hover:bg-olive-light text-white gap-1"

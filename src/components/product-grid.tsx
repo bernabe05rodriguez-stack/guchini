@@ -18,10 +18,12 @@ export function ProductGrid({ products, type, compact = false }: ProductGridProp
     )
   }
 
+  const isDrink = type === "drink"
+
   return (
-    <div className={`grid gap-4 ${
-      compact
-        ? "grid-cols-2 sm:grid-cols-3 lg:grid-cols-4"
+    <div className={`grid gap-6 ${
+      isDrink
+        ? "grid-cols-2 sm:grid-cols-3 lg:grid-cols-5"
         : "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3"
     }`}>
       {products.map((product) => (
