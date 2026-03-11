@@ -1,20 +1,30 @@
 export const dynamic = "force-dynamic"
 import { NextRequest, NextResponse } from "next/server"
 import { prisma } from "@/lib/db"
+import { getAdminFromCookie } from "@/lib/auth"
 
 export async function GET(request: NextRequest, { params }: { params: { id: string } }) {
+  const admin = await getAdminFromCookie()
+  if (!admin) return NextResponse.json({ error: "No autorizado" }, { status: 401 })
+
   const data = await prisma.sandwich.findUnique({ where: { id: params.id } })
   if (!data) return NextResponse.json({ error: "No encontrado" }, { status: 404 })
   return NextResponse.json({ ...data, image_url: data.imageUrl, display_order: data.displayOrder })
 }
 
 export async function PUT(request: NextRequest, { params }: { params: { id: string } }) {
+  const admin = await getAdminFromCookie()
+  if (!admin) return NextResponse.json({ error: "No autorizado" }, { status: 401 })
+
   const body = await request.json()
   const data = await prisma.sandwich.update({ where: { id: params.id }, data: { name: body.name, description: body.description, ingredients: body.ingredients, price: body.price, imageUrl: body.image_url, available: body.available, displayOrder: body.display_order } })
   return NextResponse.json(data)
 }
 
 export async function PATCH(request: NextRequest, { params }: { params: { id: string } }) {
+  const admin = await getAdminFromCookie()
+  if (!admin) return NextResponse.json({ error: "No autorizado" }, { status: 401 })
+
   const body = await request.json()
   const updateData: Record<string, unknown> = {}
   if (body.available !== undefined) updateData.available = body.available
@@ -25,6 +35,9 @@ export async function PATCH(request: NextRequest, { params }: { params: { id: st
 }
 
 export async function DELETE(request: NextRequest, { params }: { params: { id: string } }) {
+  const admin = await getAdminFromCookie()
+  if (!admin) return NextResponse.json({ error: "No autorizado" }, { status: 401 })
+
   await prisma.sandwich.delete({ where: { id: params.id } })
   return NextResponse.json({ success: true })
 }

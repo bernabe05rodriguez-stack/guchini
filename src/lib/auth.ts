@@ -1,7 +1,10 @@
 import { SignJWT, jwtVerify } from "jose"
 import { cookies } from "next/headers"
 
-const secret = new TextEncoder().encode(process.env.ADMIN_JWT_SECRET || "fallback-secret-change-me-32chars")
+if (!process.env.ADMIN_JWT_SECRET) {
+  console.error("ADMIN_JWT_SECRET no está configurado. La autenticación no funcionará.")
+}
+const secret = new TextEncoder().encode(process.env.ADMIN_JWT_SECRET || "")
 
 // ---- Admin Auth ----
 export async function signAdminToken(payload: { sub: string; username: string }) {

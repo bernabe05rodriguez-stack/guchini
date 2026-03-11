@@ -52,6 +52,7 @@ export function ProductCard({ product, type, compact = false }: ProductCardProps
             src={imageUrl}
             alt={product.name}
             fill
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
             className={`${isDrink ? "object-contain p-3" : "object-cover"} group-hover:scale-105 transition-transform duration-300`}
           />
         ) : (

@@ -2,9 +2,13 @@ export const dynamic = "force-dynamic"
 import { NextResponse } from "next/server"
 import { prisma } from "@/lib/db"
 import bcrypt from "bcryptjs"
+import { getAdminFromCookie } from "@/lib/auth"
 
 export async function POST() {
   try {
+    const admin = await getAdminFromCookie()
+    if (!admin) return NextResponse.json({ error: "No autorizado" }, { status: 401 })
+
     // Check if already seeded
     const existing = await prisma.adminUser.findFirst()
     if (existing) return NextResponse.json({ message: "Already seeded" })

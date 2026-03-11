@@ -87,5 +87,6 @@ export interface CartItem {
 
 export interface OrderWithItems extends Order {
   order_items: OrderItem[]
+  customer_name?: string
   user?: User
 }

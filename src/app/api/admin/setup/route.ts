@@ -1,9 +1,13 @@
 export const dynamic = "force-dynamic"
 import { NextResponse } from "next/server"
 import { prisma } from "@/lib/db"
+import { getAdminFromCookie } from "@/lib/auth"
 
 export async function POST() {
   try {
+    const admin = await getAdminFromCookie()
+    if (!admin) return NextResponse.json({ error: "No autorizado" }, { status: 401 })
+
     // Create all tables via raw SQL
     await prisma.$executeRawUnsafe(`
       CREATE TABLE IF NOT EXISTS "users" (

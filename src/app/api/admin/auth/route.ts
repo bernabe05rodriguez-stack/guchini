@@ -3,9 +3,14 @@ import { NextRequest, NextResponse } from "next/server"
 import bcrypt from "bcryptjs"
 import { prisma } from "@/lib/db"
 import { signAdminToken } from "@/lib/auth"
+import { rateLimit } from "@/lib/rate-limit"
 
 export async function POST(request: NextRequest) {
   try {
+    const ip = request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() || "unknown"
+    const { ok } = rateLimit(`admin-login:${ip}`, 5, 60_000)
+    if (!ok) return NextResponse.json({ error: "Demasiados intentos. Esperá un minuto." }, { status: 429 })
+
     const { username, password } = await request.json()
     if (!username || !password) return NextResponse.json({ error: "Credenciales requeridas" }, { status: 400 })
 
@@ -17,7 +22,7 @@ export async function POST(request: NextRequest) {
     }
     // Fallback to env vars
     if (!isValid) {
-      isValid = username === (process.env.ADMIN_USERNAME || "guchini-admin") && password === (process.env.ADMIN_PASSWORD || "12345678")
+      isValid = !!(process.env.ADMIN_USERNAME && process.env.ADMIN_PASSWORD) && username === process.env.ADMIN_USERNAME && password === process.env.ADMIN_PASSWORD
     }
     if (!isValid) return NextResponse.json({ error: "Credenciales inválidas" }, { status: 401 })
 

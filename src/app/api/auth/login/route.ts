@@ -3,9 +3,14 @@ import { NextRequest, NextResponse } from "next/server"
 import bcrypt from "bcryptjs"
 import { prisma } from "@/lib/db"
 import { signUserToken } from "@/lib/auth"
+import { rateLimit } from "@/lib/rate-limit"
 
 export async function POST(request: NextRequest) {
   try {
+    const ip = request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() || "unknown"
+    const { ok } = rateLimit(`login:${ip}`, 10, 60_000)
+    if (!ok) return NextResponse.json({ error: "Demasiados intentos. Esperá un minuto." }, { status: 429 })
+
     const { email, password } = await request.json()
     if (!email || !password) return NextResponse.json({ error: "Email y contraseña requeridos" }, { status: 400 })
 
