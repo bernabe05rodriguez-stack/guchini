@@ -4,7 +4,12 @@ import { prisma } from "@/lib/db"
 
 export async function GET() {
   try {
-    const orders = await prisma.order.findMany({ orderBy: { createdAt: "desc" }, take: 50, include: { items: true } })
+    const orders = await prisma.order.findMany({
+      where: { status: { not: "pending" } },
+      orderBy: { createdAt: "desc" },
+      take: 50,
+      include: { items: true },
+    })
     // Map to snake_case for frontend compatibility
     return NextResponse.json(orders.map(o => ({
       ...o, order_number: o.orderNumber, created_at: o.createdAt, updated_at: o.updatedAt,
