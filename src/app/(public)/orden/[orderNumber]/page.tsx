@@ -1,9 +1,9 @@
 "use client"
 
-import { useEffect, useState } from "react"
+import { useEffect, useState, useCallback } from "react"
 import { useParams } from "next/navigation"
 import Link from "next/link"
-import { CheckCircle2, MapPin, Clock, Copy } from "lucide-react"
+import { CheckCircle2, MapPin, Clock, Copy, ChefHat, Bell, Package } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { Separator } from "@/components/ui/separator"
@@ -14,25 +14,81 @@ import { useCart } from "@/contexts/cart-context"
 import { toast } from "sonner"
 import type { OrderWithItems } from "@/types/database"
 
+const STATUS_CONFIG = {
+  paid: {
+    icon: CheckCircle2,
+    title: "Pedido confirmado",
+    subtitle: "Tu pedido fue recibido y pronto comenzará a prepararse",
+    color: "text-blue-500",
+    bg: "bg-blue-50",
+    border: "border-blue-200",
+    step: 1,
+  },
+  preparing: {
+    icon: ChefHat,
+    title: "Preparando tu pedido",
+    subtitle: "Nuestro equipo está preparando tu sanguche",
+    color: "text-yellow-600",
+    bg: "bg-yellow-50",
+    border: "border-yellow-200",
+    step: 2,
+  },
+  ready: {
+    icon: Bell,
+    title: "¡Tu pedido está listo!",
+    subtitle: "Pasá a retirarlo por el local",
+    color: "text-green-500",
+    bg: "bg-green-50",
+    border: "border-green-300",
+    step: 3,
+  },
+  delivered: {
+    icon: Package,
+    title: "Pedido entregado",
+    subtitle: "¡Gracias por elegirnos!",
+    color: "text-gray-500",
+    bg: "bg-gray-50",
+    border: "border-gray-200",
+    step: 4,
+  },
+} as const
+
 export default function OrderConfirmationPage() {
   const params = useParams()
   const orderNumber = params.orderNumber as string
   const [order, setOrder] = useState<OrderWithItems | null>(null)
   const [loading, setLoading] = useState(true)
+  const [prevStatus, setPrevStatus] = useState<string | null>(null)
   const { clearCart } = useCart()
 
-  useEffect(() => {
-    // Clear cart on mount
-    clearCart()
+  const fetchOrder = useCallback(async () => {
+    try {
+      const res = await fetch(`/api/orders/${orderNumber}`)
+      const data = await res.json()
+      if (data.status && prevStatus && data.status !== prevStatus) {
+        if (data.status === "ready") {
+          toast.success("¡Tu pedido está listo! Pasá a retirarlo")
+        } else if (data.status === "preparing") {
+          toast.info("Tu pedido se está preparando")
+        }
+      }
+      setPrevStatus(data.status)
+      setOrder(data)
+      setLoading(false)
+    } catch {
+      setLoading(false)
+    }
+  }, [orderNumber, prevStatus])
 
-    fetch(`/api/orders/${orderNumber}`)
-      .then(res => res.json())
-      .then(data => {
-        setOrder(data)
-        setLoading(false)
-      })
-      .catch(() => setLoading(false))
-  }, [orderNumber, clearCart])
+  useEffect(() => {
+    clearCart()
+  }, [clearCart])
+
+  useEffect(() => {
+    fetchOrder()
+    const interval = setInterval(fetchOrder, 5000)
+    return () => clearInterval(interval)
+  }, [fetchOrder])
 
   const copyOrderNumber = () => {
     navigator.clipboard.writeText(orderNumber)
@@ -58,22 +114,44 @@ export default function OrderConfirmationPage() {
     )
   }
 
-  const isPaid = order.status === "paid" || order.status === "preparing" || order.status === "ready"
+  const isPaid = ["paid", "preparing", "ready", "delivered"].includes(order.status)
+  const statusKey = order.status as keyof typeof STATUS_CONFIG
+  const config = STATUS_CONFIG[statusKey]
+  const StatusIcon = config?.icon || CheckCircle2
 
   return (
     <div className="container max-w-lg py-8 space-y-6">
-      {isPaid && <ConfettiTrigger />}
+      {isPaid && order.status === "paid" && <ConfettiTrigger />}
 
-      {/* Header */}
+      {/* Status header */}
       <div className="text-center space-y-3">
-        <CheckCircle2 className="h-16 w-16 text-green-500 mx-auto" />
+        <StatusIcon className={`h-16 w-16 mx-auto ${config?.color || "text-green-500"} ${order.status === "ready" ? "animate-bounce" : ""}`} />
         <h1 className="text-2xl font-display font-bold">
-          {isPaid ? "¡Pedido confirmado!" : "Pedido registrado"}
+          {config?.title || "Pedido registrado"}
         </h1>
+        <p className="text-muted-foreground">{config?.subtitle}</p>
       </div>
 
-      {/* Order number - GIANT */}
-      <Card className="border-2 border-olive bg-white">
+      {/* Progress steps */}
+      {isPaid && config && (
+        <div className="flex items-center justify-center gap-2 px-4">
+          {["Confirmado", "Preparando", "Listo", "Entregado"].map((label, i) => {
+            const stepNum = i + 1
+            const isActive = config.step >= stepNum
+            return (
+              <div key={label} className="flex-1 text-center">
+                <div className={`h-2 rounded-full mb-1 transition-colors ${isActive ? "bg-olive" : "bg-gray-200"}`} />
+                <span className={`text-[10px] ${isActive ? "text-olive font-medium" : "text-gray-400"}`}>
+                  {label}
+                </span>
+              </div>
+            )
+          })}
+        </div>
+      )}
+
+      {/* Order number */}
+      <Card className={`border-2 ${config?.border || "border-olive"} ${config?.bg || "bg-white"}`}>
         <CardContent className="py-8 text-center">
           <p className="text-sm text-muted-foreground mb-2">Tu número de orden:</p>
           <div className="text-5xl md:text-7xl font-display font-black text-olive tracking-wider">
@@ -91,8 +169,23 @@ export default function OrderConfirmationPage() {
         </CardContent>
       </Card>
 
-      {/* Wait time */}
-      {order.estimated_wait_minutes && (
+      {/* Ready alert */}
+      {order.status === "ready" && (
+        <Card className="border-2 border-green-400 bg-green-50">
+          <CardContent className="py-6 text-center space-y-2">
+            <Bell className="h-10 w-10 text-green-500 mx-auto animate-bounce" />
+            <p className="text-xl font-display font-bold text-green-700">
+              ¡Pasá a retirarlo!
+            </p>
+            <p className="text-sm text-green-600">
+              Mostrá el número <span className="font-bold">{orderNumber}</span> en el local
+            </p>
+          </CardContent>
+        </Card>
+      )}
+
+      {/* Wait time - only show if not ready/delivered */}
+      {order.estimated_wait_minutes && !["ready", "delivered"].includes(order.status) && (
         <Card>
           <CardContent className="flex items-center gap-3 py-4">
             <Clock className="h-5 w-5 text-olive" />
@@ -105,15 +198,17 @@ export default function OrderConfirmationPage() {
       )}
 
       {/* Pickup info */}
-      <Card>
-        <CardContent className="flex items-center gap-3 py-4">
-          <MapPin className="h-5 w-5 text-brown" />
-          <div>
-            <p className="font-medium">Presentá este número en el local</p>
-            <p className="text-sm text-muted-foreground">{STORE_ADDRESS}</p>
-          </div>
-        </CardContent>
-      </Card>
+      {!["ready", "delivered"].includes(order.status) && (
+        <Card>
+          <CardContent className="flex items-center gap-3 py-4">
+            <MapPin className="h-5 w-5 text-brown" />
+            <div>
+              <p className="font-medium">Retirá en el local</p>
+              <p className="text-sm text-muted-foreground">{STORE_ADDRESS}</p>
+            </div>
+          </CardContent>
+        </Card>
+      )}
 
       {/* Order details */}
       <Card>
@@ -121,9 +216,7 @@ export default function OrderConfirmationPage() {
           <h3 className="font-display font-bold">Detalle del pedido</h3>
           {order.order_items?.map((item) => (
             <div key={item.id} className="flex justify-between text-sm">
-              <span>
-                x{item.quantity} {item.item_name}
-              </span>
+              <span>x{item.quantity} {item.item_name}</span>
               <span className="font-medium">{formatPrice(Number(item.subtotal))}</span>
             </div>
           ))}
