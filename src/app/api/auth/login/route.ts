@@ -12,6 +12,10 @@ export async function POST(request: NextRequest) {
     const user = await prisma.user.findUnique({ where: { email } })
     if (!user) return NextResponse.json({ error: "Credenciales inválidas" }, { status: 401 })
 
+    if (!user.passwordHash) {
+      return NextResponse.json({ error: "Esta cuenta usa Google. Iniciá sesión con Google." }, { status: 400 })
+    }
+
     const valid = await bcrypt.compare(password, user.passwordHash)
     if (!valid) return NextResponse.json({ error: "Credenciales inválidas" }, { status: 401 })
 
