@@ -1,4 +1,4 @@
-import { MapPin, Clock, ExternalLink, Phone } from "lucide-react"
+import { MapPin, Clock, ExternalLink } from "lucide-react"
 import { STORE_ADDRESS, STORE_HOURS, STORE_MAPS_URL } from "@/lib/constants"
 
 export function LocalesSection() {
