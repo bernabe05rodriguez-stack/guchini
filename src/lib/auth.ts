@@ -1,10 +1,11 @@
 import { SignJWT, jwtVerify } from "jose"
 import { cookies } from "next/headers"
 
+const JWT_SECRET = process.env.ADMIN_JWT_SECRET || "guchini-jwt-secret-key-2026-prod-32ch"
 if (!process.env.ADMIN_JWT_SECRET) {
-  console.error("ADMIN_JWT_SECRET no está configurado. La autenticación no funcionará.")
+  console.warn("WARN: ADMIN_JWT_SECRET no configurado, usando fallback")
 }
-const secret = new TextEncoder().encode(process.env.ADMIN_JWT_SECRET || "")
+const secret = new TextEncoder().encode(JWT_SECRET)
 
 // ---- Admin Auth ----
 export async function signAdminToken(payload: { sub: string; username: string }) {
