@@ -7,9 +7,11 @@ interface ProductGridProps {
   products: (Sandwich | Drink)[]
   type: "sandwich" | "drink"
   compact?: boolean
+  storeOpen?: boolean
+  storeMessage?: string
 }
 
-export function ProductGrid({ products, type, compact = false }: ProductGridProps) {
+export function ProductGrid({ products, type, compact = false, storeOpen = true, storeMessage = "" }: ProductGridProps) {
   if (products.length === 0) {
     return (
       <p className="text-muted-foreground text-center py-8">
@@ -32,6 +34,8 @@ export function ProductGrid({ products, type, compact = false }: ProductGridProp
           product={product}
           type={type}
           compact={compact}
+          storeOpen={storeOpen}
+          storeMessage={storeMessage}
         />
       ))}
     </div>

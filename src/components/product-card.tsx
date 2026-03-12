@@ -19,13 +19,15 @@ interface ProductCardProps {
   product: SandwichType | Drink
   type: "sandwich" | "drink"
   compact?: boolean
+  storeOpen?: boolean
+  storeMessage?: string
 }
 
 function isSandwich(product: SandwichType | Drink): product is SandwichType {
   return "ingredients" in product
 }
 
-export function ProductCard({ product, type, compact = false }: ProductCardProps) {
+export function ProductCard({ product, type, compact = false, storeOpen = true, storeMessage = "" }: ProductCardProps) {
   const { addItem } = useCart()
   const isDrink = type === "drink"
 
@@ -33,6 +35,10 @@ export function ProductCard({ product, type, compact = false }: ProductCardProps
 
   const handleAdd = () => {
     if (!product.available) return
+    if (!storeOpen) {
+      toast.error(`Local cerrado. ${storeMessage}`)
+      return
+    }
     addItem({
       id: product.id,
       type,
@@ -106,10 +112,10 @@ export function ProductCard({ product, type, compact = false }: ProductCardProps
             size="sm"
             onClick={handleAdd}
             disabled={!product.available}
-            className="bg-olive hover:bg-olive-light text-white gap-1"
+            className={`gap-1 ${!storeOpen ? "bg-gray-400 hover:bg-gray-500" : "bg-olive hover:bg-olive-light"} text-white`}
           >
             <Plus className="h-4 w-4" />
-            Agregar
+            {storeOpen ? "Agregar" : "Cerrado"}
           </Button>
         </div>
       </CardContent>

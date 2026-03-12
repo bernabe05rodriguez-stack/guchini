@@ -7,16 +7,15 @@ import { ProductGrid } from "@/components/product-grid"
 import { FranquiciasSection } from "@/components/franquicias-section"
 import { HistoriaSection } from "@/components/historia-section"
 import { LocalesSection } from "@/components/locales-section"
+import { getStoreStatus } from "@/lib/constants"
 
 export default async function HomePage() {
-  const [sandwiches, drinks, settings] = await Promise.all([
+  const [sandwiches, drinks] = await Promise.all([
     prisma.sandwich.findMany({ where: { available: true }, orderBy: { displayOrder: "asc" } }),
     prisma.drink.findMany({ where: { available: true }, orderBy: { displayOrder: "asc" } }),
-    prisma.setting.findMany({ where: { key: { in: ["store_open", "store_message"] } } }),
   ])
 
-  const storeOpen = settings.find(s => s.key === "store_open")?.value === "true"
-  const storeMessage = settings.find(s => s.key === "store_message")?.value || ""
+  const { isOpen: storeOpen, message: storeMessage } = getStoreStatus()
 
   const sandwichData = sandwiches.map(s => ({
     id: s.id,
@@ -41,7 +40,7 @@ export default async function HomePage() {
       <HeroSection storeOpen={storeOpen} storeMessage={storeMessage} />
 
       {/* Nuestros Sanguchinis */}
-      <CatalogoSection dbProducts={sandwichData} />
+      <CatalogoSection dbProducts={sandwichData} storeOpen={storeOpen} storeMessage={storeMessage} />
 
       {/* Bebidas */}
       <section className="py-24 bg-white">
@@ -55,7 +54,7 @@ export default async function HomePage() {
               Completá tu combo con la bebida perfecta
             </p>
           </div>
-          <ProductGrid products={drinkData} type="drink" />
+          <ProductGrid products={drinkData} type="drink" storeOpen={storeOpen} storeMessage={storeMessage} />
         </div>
       </section>
 

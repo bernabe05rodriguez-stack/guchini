@@ -17,13 +17,19 @@ interface DbProduct {
 
 interface CatalogoSectionProps {
   dbProducts: DbProduct[]
+  storeOpen: boolean
+  storeMessage: string
 }
 
-export function CatalogoSection({ dbProducts }: CatalogoSectionProps) {
+export function CatalogoSection({ dbProducts, storeOpen, storeMessage }: CatalogoSectionProps) {
   const { addItem } = useCart()
 
   const handleAdd = (product: typeof CATALOG_PRODUCTS[0], db: DbProduct) => {
     if (!db.available) return
+    if (!storeOpen) {
+      toast.error(`Local cerrado. ${storeMessage}`)
+      return
+    }
     addItem({
       id: db.id,
       type: "sandwich",
@@ -133,10 +139,10 @@ export function CatalogoSection({ dbProducts }: CatalogoSectionProps) {
                         onClick={() => handleAdd(product, db)}
                         disabled={!db.available}
                         size="sm"
-                        className="bg-olive hover:bg-olive-light text-white gap-1.5 rounded-full px-5"
+                        className={`gap-1.5 rounded-full px-5 ${!storeOpen ? "bg-gray-400 hover:bg-gray-500" : "bg-olive hover:bg-olive-light"} text-white`}
                       >
                         <Plus className="h-4 w-4" />
-                        Agregar
+                        {storeOpen ? "Agregar" : "Cerrado"}
                       </Button>
                     </div>
                   )}
