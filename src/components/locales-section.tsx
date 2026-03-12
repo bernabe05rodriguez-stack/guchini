@@ -3,14 +3,14 @@ import { STORE_ADDRESS, STORE_HOURS, STORE_MAPS_URL } from "@/lib/constants"
 
 export function LocalesSection() {
   return (
-    <section id="locales" className="py-24 bg-white">
+    <section id="locales" className="py-24 bg-cream">
       <div className="container">
         <div className="text-center mb-16">
-          <span className="font-medium text-sm uppercase tracking-widest" style={{ color: "#E8A020" }}>Visitanos</span>
-          <h2 className="text-4xl md:text-5xl font-display font-bold mt-3 mb-4" style={{ color: "#1A1A1A" }}>
+          <span className="text-mustard font-medium text-sm uppercase tracking-widest">Visitanos</span>
+          <h2 className="text-4xl md:text-5xl font-display font-bold text-foreground mt-3 mb-4">
             Nuestros Locales
           </h2>
-          <p className="text-lg max-w-2xl mx-auto" style={{ color: "#555555" }}>
+          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
             Visitanos y probá la experiencia Guchini
           </p>
         </div>
@@ -19,31 +19,31 @@ export function LocalesSection() {
           <div className="bg-white rounded-3xl overflow-hidden shadow-sm border border-border">
             <div className="grid grid-cols-1 lg:grid-cols-2">
               {/* Store info */}
-              <div className="p-8 md:p-10 flex flex-col justify-center" style={{ color: "#1A1A1A" }}>
+              <div className="p-8 md:p-10 flex flex-col justify-center">
                 <div className="flex items-center gap-3 mb-6">
                   <div className="w-12 h-12 rounded-full bg-olive flex items-center justify-center flex-shrink-0">
                     <MapPin className="h-5 w-5 text-white" />
                   </div>
                   <div>
-                    <h3 className="text-2xl font-display font-bold" style={{ color: "#1A1A1A" }}>
+                    <h3 className="text-2xl font-display font-bold text-foreground">
                       Guchini &ldquo;La Casa&rdquo;
                     </h3>
-                    <p className="text-sm font-semibold" style={{ color: "#E8A020" }}>Mendoza, Argentina</p>
+                    <p className="text-sm text-mustard font-semibold">Mendoza, Argentina</p>
                   </div>
                 </div>
 
                 <div className="space-y-4 mb-8">
-                  <div className="flex items-start gap-3" style={{ color: "#555555" }}>
-                    <MapPin className="h-5 w-5 mt-0.5 flex-shrink-0" style={{ color: "rgba(45,80,22,0.6)" }} />
+                  <div className="flex items-start gap-3 text-muted-foreground">
+                    <MapPin className="h-5 w-5 text-olive mt-0.5 flex-shrink-0" />
                     <div>
-                      <p className="font-medium text-sm" style={{ color: "#1A1A1A" }}>Dirección</p>
+                      <p className="font-medium text-foreground text-sm">Dirección</p>
                       <p className="text-sm">{STORE_ADDRESS}</p>
                     </div>
                   </div>
-                  <div className="flex items-start gap-3" style={{ color: "#555555" }}>
-                    <Clock className="h-5 w-5 mt-0.5 flex-shrink-0" style={{ color: "rgba(45,80,22,0.6)" }} />
+                  <div className="flex items-start gap-3 text-muted-foreground">
+                    <Clock className="h-5 w-5 text-olive mt-0.5 flex-shrink-0" />
                     <div>
-                      <p className="font-medium text-sm" style={{ color: "#1A1A1A" }}>Horarios</p>
+                      <p className="font-medium text-foreground text-sm">Horarios</p>
                       <p className="text-sm">{STORE_HOURS}</p>
                     </div>
                   </div>
