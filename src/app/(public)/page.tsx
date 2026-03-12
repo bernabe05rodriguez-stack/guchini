@@ -6,7 +6,6 @@ import { CatalogoSection } from "@/components/catalogo-section"
 import { ProductGrid } from "@/components/product-grid"
 import { FranquiciasSection } from "@/components/franquicias-section"
 import { HistoriaSection } from "@/components/historia-section"
-import { LocalesSection } from "@/components/locales-section"
 import { getStoreStatus } from "@/lib/constants"
 
 export default async function HomePage() {
@@ -60,7 +59,6 @@ export default async function HomePage() {
 
       <FranquiciasSection />
       <HistoriaSection />
-      <LocalesSection />
     </>
   )
 }

@@ -23,7 +23,6 @@ export function Footer() {
                 { label: "Sanguchinis", href: "#productos" },
                 { label: "Franquicias", href: "#franquicias" },
                 { label: "Nosotros", href: "#historia" },
-                { label: "Locales", href: "#locales" },
               ].map((link) => (
                 <a
                   key={link.href}

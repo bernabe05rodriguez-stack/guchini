@@ -54,13 +54,6 @@ export function HeroSection({ storeOpen, storeMessage }: HeroSectionProps) {
           >
             Nuestros Sanguchinis
           </Button>
-          <Button
-            onClick={() => scrollTo("#locales")}
-            variant="outline"
-            className="border-2 border-white/40 text-white hover:bg-white/10 font-bold px-8 py-6 text-base rounded-full backdrop-blur-sm transition-all"
-          >
-            Nuestros Locales
-          </Button>
         </div>
 
         <div className="flex flex-col items-center gap-2">

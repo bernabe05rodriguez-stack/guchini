@@ -19,7 +19,6 @@ const NAV_LINKS = [
   { label: "Sanguchinis", href: "#productos" },
   { label: "Franquicias", href: "#franquicias" },
   { label: "Nosotros", href: "#historia" },
-  { label: "Locales", href: "#locales" },
 ]
 
 export function Navbar() {
