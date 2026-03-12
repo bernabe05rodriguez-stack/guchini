@@ -3,14 +3,14 @@ import { STORE_ADDRESS, STORE_HOURS, STORE_MAPS_URL } from "@/lib/constants"
 
 export function LocalesSection() {
   return (
-    <section id="locales" className="py-24" style={{ backgroundColor: "#2D5016" }}>
+    <section id="locales" className="py-24 bg-white">
       <div className="container">
         <div className="text-center mb-16">
-          <span className="text-mustard font-medium text-sm uppercase tracking-widest">Visitanos</span>
-          <h2 className="text-4xl md:text-5xl font-display font-bold text-white mt-3 mb-4">
+          <span className="font-medium text-sm uppercase tracking-widest" style={{ color: "#E8A020" }}>Visitanos</span>
+          <h2 className="text-4xl md:text-5xl font-display font-bold mt-3 mb-4" style={{ color: "#1A1A1A" }}>
             Nuestros Locales
           </h2>
-          <p className="text-lg text-white/70 max-w-2xl mx-auto">
+          <p className="text-lg max-w-2xl mx-auto" style={{ color: "#555555" }}>
             Visitanos y probá la experiencia Guchini
           </p>
         </div>
