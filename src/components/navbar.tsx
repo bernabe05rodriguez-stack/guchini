@@ -68,10 +68,10 @@ export function Navbar() {
         ? "bg-white/95 backdrop-blur-md shadow-sm"
         : "bg-transparent"
     }`}>
-      <div className="container flex h-18 items-center justify-between py-3">
+      <div className="container flex items-center justify-between py-2 md:py-3">
         {/* Logo */}
         <Link href="/" className="flex items-center" onClick={() => handleNavClick("#home")}>
-          <Image src="/logo.png" alt="Guchini" width={112} height={112} className="rounded-full" />
+          <Image src="/logo.png" alt="Guchini" width={72} height={72} className="rounded-full md:w-[112px] md:h-[112px]" />
         </Link>
 
         {/* Desktop nav links */}
@@ -90,7 +90,7 @@ export function Navbar() {
         </div>
 
         {/* Actions */}
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-1 sm:gap-2">
           {/* Cart */}
           <Button
             variant="ghost"
@@ -149,7 +149,7 @@ export function Navbar() {
       {/* Mobile menu */}
       {mobileOpen && (
         <div className="md:hidden bg-white border-t border-border/50 shadow-lg">
-          <div className="container py-4 space-y-1">
+          <div className="container py-3 space-y-1">
             {NAV_LINKS.map((link) => (
               <button
                 key={link.href}

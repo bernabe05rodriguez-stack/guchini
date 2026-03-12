@@ -3,22 +3,22 @@ import { STORE_NAME, STORE_TAGLINE, STORE_ADDRESS, STORE_INSTAGRAM, STORE_TIKTOK
 
 export function Footer() {
   return (
-    <footer className="bg-[#1A1A1A] text-white/80 py-16">
+    <footer className="bg-[#1A1A1A] text-white/80 py-10 md:py-16">
       <div className="container">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12">
           {/* Brand */}
           <div>
-            <h3 className="text-3xl font-display font-bold text-white">{STORE_NAME}</h3>
+            <h3 className="text-2xl md:text-3xl font-display font-bold text-white">{STORE_NAME}</h3>
             <p className="text-sm text-mustard font-medium mt-1">{STORE_TAGLINE}</p>
-            <p className="text-sm text-white/50 mt-4 leading-relaxed max-w-xs">
+            <p className="text-sm text-white/50 mt-3 md:mt-4 leading-relaxed max-w-xs">
               El perfecto equilibrio del Fast Food y lo Gourmet. Sándwiches artesanales en pan focaccia.
             </p>
           </div>
 
           {/* Links */}
           <div>
-            <h4 className="text-sm font-bold text-white uppercase tracking-wider mb-5">Navegación</h4>
-            <div className="space-y-3 text-sm">
+            <h4 className="text-sm font-bold text-white uppercase tracking-wider mb-3 md:mb-5">Navegación</h4>
+            <div className="space-y-2 md:space-y-3 text-sm">
               {[
                 { label: "Sanguchinis", href: "#productos" },
                 { label: "Franquicias", href: "#franquicias" },
@@ -37,8 +37,8 @@ export function Footer() {
 
           {/* Contact */}
           <div>
-            <h4 className="text-sm font-bold text-white uppercase tracking-wider mb-5">Contacto</h4>
-            <div className="space-y-3 text-sm">
+            <h4 className="text-sm font-bold text-white uppercase tracking-wider mb-3 md:mb-5">Contacto</h4>
+            <div className="space-y-2 md:space-y-3 text-sm">
               <div className="flex items-center gap-3 text-white/50">
                 <MapPin className="h-4 w-4 flex-shrink-0 text-white/30" />
                 <span>{STORE_ADDRESS}</span>
@@ -77,7 +77,7 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="mt-12 pt-8 border-t border-white/10 text-center text-xs text-white/30">
+        <div className="mt-8 md:mt-12 pt-6 md:pt-8 border-t border-white/10 text-center text-xs text-white/30">
           &copy; {new Date().getFullYear()} {STORE_NAME}. Todos los derechos reservados.
         </div>
       </div>
