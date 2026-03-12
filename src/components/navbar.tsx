@@ -121,11 +121,14 @@ export function Navbar() {
             </div>
           ) : (
             <Link href="/auth/login" className="hidden sm:block">
-              <Button size="sm" className={`gap-2 rounded-full font-semibold transition-colors duration-300 ${
-                scrolled
-                  ? "bg-olive text-white hover:bg-olive-light"
-                  : "bg-white/20 text-white border border-white/40 hover:bg-white/30 backdrop-blur-sm"
-              }`}>
+              <Button
+                size="sm"
+                className="gap-2 rounded-full font-semibold"
+                style={scrolled
+                  ? { backgroundColor: "#2D5016", color: "#FFFFFF" }
+                  : { backgroundColor: "rgba(255,255,255,0.2)", color: "#FFFFFF", border: "1px solid rgba(255,255,255,0.4)", backdropFilter: "blur(8px)" }
+                }
+              >
                 <User className="h-4 w-4" />
                 Ingresar
               </Button>
