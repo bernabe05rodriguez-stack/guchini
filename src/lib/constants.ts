@@ -52,25 +52,25 @@ export const CATALOG_PRODUCTS = [
   {
     name: "Crudo",
     description: "Jamón crudo, queso sardo, tomate, rúcula, pesto de albahaca",
-    bread: "Focaccia",
+    badge: null,
     image: "/products/crudo.jpg",
   },
   {
     name: "La Patrona",
     description: "Milanesa de berenjena, queso sardo, cebolla pickle, tomate, rúcula, alioli",
-    bread: "Focaccia",
+    badge: "Veggie",
     image: "/products/la_patrona.jpg",
   },
   {
     name: "Guchicken",
     description: "Milanesa de pollo, queso gruyere, coleslaw, mostaneza",
-    bread: "Focaccia",
+    badge: null,
     image: "/products/guchicken.jpg",
   },
   {
     name: "Mortadela",
     description: "Mortadela con pistacho, stracciatella, queso sbrinz, pesto",
-    bread: "Focaccia",
+    badge: null,
     image: "/products/mortadela.jpg",
   },
 ]

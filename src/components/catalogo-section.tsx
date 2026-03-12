@@ -113,12 +113,14 @@ export function CatalogoSection({ dbProducts, storeOpen, storeMessage }: Catalog
                       </span>
                     </div>
                   )}
-                  {/* Bread badge */}
-                  <div className="absolute top-3 left-3">
-                    <span className="text-xs font-medium text-white bg-olive/80 backdrop-blur-sm px-3 py-1 rounded-full">
-                      Pan {product.bread}
-                    </span>
-                  </div>
+                  {/* Badge */}
+                  {product.badge && (
+                    <div className="absolute top-3 left-3">
+                      <span className="text-xs font-medium text-white bg-green-600/90 backdrop-blur-sm px-3 py-1 rounded-full">
+                        {product.badge}
+                      </span>
+                    </div>
+                  )}
                 </div>
 
                 <div className="p-5">
