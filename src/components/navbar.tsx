@@ -72,7 +72,7 @@ export function Navbar() {
       <div className="container flex h-18 items-center justify-between py-3">
         {/* Logo */}
         <Link href="/" className="flex items-center" onClick={() => handleNavClick("#home")}>
-          <Image src="/logo.png" alt="Guchini" width={56} height={56} className="rounded-full" />
+          <Image src="/logo.png" alt="Guchini" width={112} height={112} className="rounded-full" />
         </Link>
 
         {/* Desktop nav links */}

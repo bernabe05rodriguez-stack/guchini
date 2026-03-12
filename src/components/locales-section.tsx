@@ -3,7 +3,7 @@ import { STORE_ADDRESS, STORE_HOURS, STORE_MAPS_URL } from "@/lib/constants"
 
 export function LocalesSection() {
   return (
-    <section id="locales" className="py-24 bg-olive-dark">
+    <section id="locales" className="py-24" style={{ backgroundColor: "#2D5016" }}>
       <div className="container">
         <div className="text-center mb-16">
           <span className="text-mustard font-medium text-sm uppercase tracking-widest">Visitanos</span>
