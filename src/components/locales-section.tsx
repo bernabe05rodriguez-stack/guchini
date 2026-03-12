@@ -25,7 +25,7 @@ export function LocalesSection() {
                     <MapPin className="h-5 w-5 text-white" />
                   </div>
                   <div>
-                    <h3 className="text-2xl font-display font-bold text-foreground">
+                    <h3 className="text-2xl font-display font-bold" style={{ color: "#1A1A1A" }}>
                       Guchini &ldquo;La Casa&rdquo;
                     </h3>
                     <p className="text-sm text-mustard font-semibold">Mendoza, Argentina</p>
@@ -33,17 +33,17 @@ export function LocalesSection() {
                 </div>
 
                 <div className="space-y-4 mb-8">
-                  <div className="flex items-start gap-3 text-muted-foreground">
+                  <div className="flex items-start gap-3" style={{ color: "#555555" }}>
                     <MapPin className="h-5 w-5 text-olive/60 mt-0.5 flex-shrink-0" />
                     <div>
-                      <p className="font-medium text-foreground text-sm">Dirección</p>
+                      <p className="font-medium text-sm" style={{ color: "#1A1A1A" }}>Dirección</p>
                       <p className="text-sm">{STORE_ADDRESS}</p>
                     </div>
                   </div>
-                  <div className="flex items-start gap-3 text-muted-foreground">
+                  <div className="flex items-start gap-3" style={{ color: "#555555" }}>
                     <Clock className="h-5 w-5 text-olive/60 mt-0.5 flex-shrink-0" />
                     <div>
-                      <p className="font-medium text-foreground text-sm">Horarios</p>
+                      <p className="font-medium text-sm" style={{ color: "#1A1A1A" }}>Horarios</p>
                       <p className="text-sm">{STORE_HOURS}</p>
                     </div>
                   </div>
