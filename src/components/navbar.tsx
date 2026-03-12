@@ -71,13 +71,8 @@ export function Navbar() {
     }`}>
       <div className="container flex h-18 items-center justify-between py-3">
         {/* Logo */}
-        <Link href="/" className="flex items-center gap-2.5" onClick={() => handleNavClick("#home")}>
-          <Image src="/logo.png" alt="Guchini" width={42} height={42} className="rounded-full" />
-          <span className={`text-2xl font-display font-bold transition-colors duration-300 ${
-            scrolled ? "text-olive" : "text-white"
-          }`}>
-            Guchini
-          </span>
+        <Link href="/" className="flex items-center" onClick={() => handleNavClick("#home")}>
+          <Image src="/logo.png" alt="Guchini" width={56} height={56} className="rounded-full" />
         </Link>
 
         {/* Desktop nav links */}
@@ -126,8 +121,10 @@ export function Navbar() {
             </div>
           ) : (
             <Link href="/auth/login" className="hidden sm:block">
-              <Button variant="outline" size="sm" className={`gap-2 rounded-full ${
-                scrolled ? "border-olive/20 hover:bg-olive/5" : "border-white/30 text-white hover:bg-white/10"
+              <Button size="sm" className={`gap-2 rounded-full font-semibold transition-colors duration-300 ${
+                scrolled
+                  ? "bg-olive text-white hover:bg-olive-light"
+                  : "bg-white/20 text-white border border-white/40 hover:bg-white/30 backdrop-blur-sm"
               }`}>
                 <User className="h-4 w-4" />
                 Ingresar
